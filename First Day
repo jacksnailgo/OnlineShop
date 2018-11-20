@@ -1,4 +1,19 @@
 总结：
+1.环境的搭建： 
+  导包：项目需要用到的jar包：conncetor-java\Common-BeanUtils\Commons-dbutils\jstl
+  导入文件：将前端显示的页面的包导入
+  工具类：DataSourceUtils\Md5Utils\MailUtils
+  配置文件：c3p0-config.xml
+  数据库：store.sql
+ 2.建立数据库，建立相应的表。
+ 
+ 3.代码编写：
+ 
+ 修改注册页面jsp，将表单数据传输到RegisterServlet中。
+ 编写Servlet，将注册信息提交到数据库中。
+ 
+
+
 
 
 问题：遇到HTTP Status 500 – Internal Server Error
