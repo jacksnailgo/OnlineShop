@@ -1,0 +1,7 @@
+总结：
+
+
+问题：遇到HTTP Status 500 – Internal Server Error
+org.apache.commons.beanutils.ConversionException: DateConverter does not support default String to 'Date' conversion.
+
+解决：
