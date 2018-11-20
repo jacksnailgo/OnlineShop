@@ -2,7 +2,11 @@ package servlet;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -11,10 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.Converter;
 
 import domain.User;
 import service.UserService;
 import util.CommonUtils;
+
 
 /**
  * Servlet implementation class RegisterServlet
@@ -40,6 +47,27 @@ public class RegisterServlet extends HttpServlet {
 		// 获得表单数据
 		Map<String, String[]> parameterMap = request.getParameterMap();
 		User user = new User();
+		
+		//自己指定一个类型转换器，将(String转换成date)
+		ConvertUtils.register(	new Converter() {
+
+			@Override
+			public Object convert(Class clazz, Object value) {
+				//将String转成Date
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+				Date parse=null;
+				try {
+					parse= sdf.parse(value.toString());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// TODO Auto-generated method stub
+				return parse;
+			}
+			
+		}, Date.class);
+		
 		// private String uid;
 		user.setUid(CommonUtils.getUUID());
 		// private String telephone;
@@ -49,6 +77,7 @@ public class RegisterServlet extends HttpServlet {
 //		private String code;  //激活码
 		user.setCode(CommonUtils.getUUID());
 		try {
+			//映射封装
 			BeanUtils.populate(user, parameterMap);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -58,16 +87,18 @@ public class RegisterServlet extends HttpServlet {
 		UserService service=new UserService();
 		boolean isRegistSuccess=false;
 		try {
+			
+			
 			 isRegistSuccess=service.register(user);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//注册是否成功，注册成功，跳转登陆页面，失败则提示
 		if(isRegistSuccess) {
-			response.sendRedirect(request.getContextPath()+"RegisterSuccess.jsp");
+			response.sendRedirect(request.getContextPath()+"/RegisterSuccess.jsp");
 		}else {
-			response.sendRedirect(request.getContextPath()+"RegisterFail.jsp");
+			response.sendRedirect(request.getContextPath()+"/RegisterFail.jsp");
 		}
 	}
 
