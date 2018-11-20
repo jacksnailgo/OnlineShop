@@ -16,6 +16,9 @@
  点击链接的过程中，我们编写一个activeServlet.将数据库中的state修改为1.同时将页面跳转到登陆首页。
 
 
+4.前端页面修改
+使用表单校验插件，在前端进行用户名和密码的校验工作。
+
 
 
 问题：遇到HTTP Status 500 – Internal Server Error
