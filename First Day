@@ -11,7 +11,7 @@
  
  修改注册页面jsp，将表单数据传输到RegisterServlet中。
  编写Servlet，将注册信息提交到数据库中。
- 
+ 如果注册成功，通过发送邮箱，让用户前往邮箱激活账号。使用MailUtils工具类，设置发送邮箱和接收邮箱的账户以及发送内容。
 
 
 
@@ -19,4 +19,22 @@
 问题：遇到HTTP Status 500 – Internal Server Error
 org.apache.commons.beanutils.ConversionException: DateConverter does not support default String to 'Date' conversion.
 
-解决：
+解决：//自己指定一个类型转换器，将(String转换成date)
+		ConvertUtils.register(	new Converter() {
+
+			@Override
+			public Object convert(Class clazz, Object value) {
+				//将String转成Date
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+				Date parse=null;
+				try {
+					parse= sdf.parse(value.toString());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// TODO Auto-generated method stub
+				return parse;
+			}
+			
+		}, Date.class);
