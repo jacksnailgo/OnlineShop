@@ -26,6 +26,9 @@ request.setAttribute("category", category);
 5.对分页条进行处理使得跳转到相应的页面。
 
 
+
+6.显示商品详情信息
+
 遇到问题：1.无法根据商品的日期排序，获得最新商品。
 最新商品：null。
 
