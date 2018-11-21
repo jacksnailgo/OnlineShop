@@ -24,7 +24,9 @@ AJAX中$.post(url,params,function(){},"json"); $.get() 方法使用 HTTP GET 请
 这里AJAX $.get()的作用是服务器异步返回目录的名字给浏览器。
 
 4.对每个类别的商品进行分页。ProductListByCidServlet
-
+在点击目录时附带cid属性，将cid属性存入servlet中。 因为查询的时候要根据cid分类，同时需要分页。
+因此构造一个PageBean对象，带有5个属性。在service层中封装PageBean的各个属性（当前页数和当前显示个数在web层中获得）。
+dao层，将查询到的对象通过pageBean最终返回到web层中。
 
 
 5.对分页条进行处理使得跳转到相应的页面。
