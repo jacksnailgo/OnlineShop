@@ -3,8 +3,23 @@
 今日完成：
 1.首页显示最热商品，编写IndexServlet，查询数据库中最热商品的信息。将商品存入Request中，修改index.jsp页面，使其显示在页面上。
 2.修改首页，默认跳转到default.jsp页面，同时在default.jsp页面上跳转到indexServlet上。（名称为：XML中的url-pattern)
+3.页面使用AJAX显示类别菜单。（也可以使用JSP页面中的java代码实现，或者使用过滤器）
+JSP中引入JAVA代码实现方法：
+<%@ page import="java.util.*,domain.Category,service.*" %>
+
+<%
+//3.准备分类数据
+ProductService service=new ProductService();
+List<Category> category=service.findAllCategory();
+request.setAttribute("category", category);
+%>
+存在的缺陷：　增加页面的耦合度，同时代码重复度过高。
+
+使用AJAX。在header.jsp页面中修改，使得所有引入header.jsp页面的其他页面都可以访问到目录页。
 
 
+
+4.对每个类别的商品进行分页。
 
 遇到问题：无法根据商品的日期排序，获得最新商品。
 最新商品：null。
