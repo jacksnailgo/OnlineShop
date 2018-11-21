@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.Category;
 import domain.Product;
 import service.ProductService;
 
@@ -29,10 +30,15 @@ public class IndexServlet extends HttpServlet {
 		
 		//2.准备最新商品
 		List<Product> newProductList=service.findNewProducts();
+		//3.准备分类数据
+		List<Category> category=service.findAllCategory();
+		
 		
 		request.setAttribute("hotProductList", hotProductList);
 		request.setAttribute("newProductList", newProductList);
+		//request.setAttribute("category", category);
 		System.out.println("最新："+newProductList);
+		System.out.println("目录："+category.isEmpty());
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 		
 	}
