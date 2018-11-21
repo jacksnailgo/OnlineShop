@@ -8,7 +8,7 @@ JSP中引入JAVA代码实现方法：
 <%@ page import="java.util.*,domain.Category,service.*" %>
 
 <%
-//3.准备分类数据
+//准备分类数据
 ProductService service=new ProductService();
 List<Category> category=service.findAllCategory();
 request.setAttribute("category", category);
@@ -16,10 +16,14 @@ request.setAttribute("category", category);
 存在的缺陷：　增加页面的耦合度，同时代码重复度过高。
 
 使用AJAX。在header.jsp页面中修改，使得所有引入header.jsp页面的其他页面都可以访问到目录页。
+编写CategoryServlet，获得目录的数据，同时在该servlet中，将List<Category> 转换成JSON格式。 返回到AJAX的数据中。
+AJAX中$.post(url,params,function(){},"json"); $.get() 方法使用 HTTP GET 请求从服务器加载数据。  
 
+回响函数function(date)将Servlet存入的date中的信息返回给浏览器。  
 
+这里AJAX $.get()的作用是服务器异步返回目录的名字给浏览器。
 
-4.对每个类别的商品进行分页。
+4.对每个类别的商品进行分页。ProductListByCidServlet
 
 
 
@@ -27,7 +31,7 @@ request.setAttribute("category", category);
 
 
 
-6.显示商品详情信息
+6.显示商品详情信息ProductInfoServlet
 
 遇到问题：1.无法根据商品的日期排序，获得最新商品。
 最新商品：null。
