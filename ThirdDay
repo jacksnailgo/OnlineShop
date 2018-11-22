@@ -10,4 +10,7 @@
 
 
 2.使用Cookie实现历史纪录
+修改ProductInfoServlet，获得cookies，找到name为pids的串。
 
+
+3.将Cookie的数据送入ProductListByCidServlet中，获得Cookie中的pid。根据pid获得商品对象，封装成list。存入listInfo.jsp中，将商品的信息显示在历史纪录中。
