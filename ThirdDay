@@ -1,1 +1,13 @@
+
+
 1.浏览历史记录分析
+在product_info中添加返回商品列表的<a>标签。标签返回地址为：ProduclistByCid，中间传入参数currentPage和Cid。
+在点击进入product_info.jsp页面中，在ProductInfoServlet中存入currentPage和cid，
+而productInfoServlet的Cid和current Page是通过porduct_list.jsp页面中点击某个商品的图片或文字获得的。
+最终呈现的数据CurrentPage和Cid是通过这样传送的:product_list.jsp--->productInfo-->product_info.jsp----->最终返回productListByCidServlet转发的页面
+（product_list.jsp）。
+
+
+
+2.使用Cookie实现历史纪录
+
