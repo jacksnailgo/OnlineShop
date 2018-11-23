@@ -1,13 +1,19 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 import domain.PageBean;
+import domain.Product;
 import service.ProductService;
 
 /**
@@ -33,6 +39,36 @@ public class ProductListByCidServlet extends HttpServlet {
 		pageBean=service.findProductByCid(cid,currentPage,currentCount);
 		request.setAttribute("pageBean", pageBean);
 		request.setAttribute("cid", cid);
+		
+		//定义一个记录历史商品信息的集合
+		List<Product> historyProduct=new ArrayList<Product>();
+		
+		Cookie[] cookies=request.getCookies();
+		if(cookies!=null) {
+			for(Cookie cookie:cookies) {
+				if("pids".equals(cookie.getName())) {
+					String pids=cookie.getValue();
+					String[] spilt=pids.split("-");
+					for(String pid:spilt) {
+						Product pro=null;
+						try {
+							pro=service.findProductByPid(pid);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						historyProduct.add(pro);		
+					}
+				}
+			}
+		}
+		
+		//将历史记录的集合放入域中
+		
+		request.setAttribute("historyProduct", historyProduct);
+		
+		
+		
 		
 		request.getRequestDispatcher("/product_list.jsp").forward(request, response);
 	}
