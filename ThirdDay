@@ -9,7 +9,7 @@
 
 
 
-2.使用Cookie实现历史纪录
+2.使用Cookie实现历史纪录(难点—）
 修改ProductInfoServlet，获得cookies，找到name为pids的串。
 
 
