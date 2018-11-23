@@ -10,7 +10,11 @@
 
 
 2.使用Cookie实现历史纪录(难点—）
-修改ProductInfoServlet，获得cookies，找到name为pids的串。
-
+修改ProductInfoServlet，获得cookies，找到name为pids的串。cookie名为pids的字符串定义为该形式"3-2-4-1".
+对pids的字符串进行修改，spilt去除"-"，之后将字符串改为linkedList。  比如"3-2-4",当前要访问4，则将4删除，再添加到链表的头部。
+代码为if(list.contains(pid)  )  
+list.remove(pid);
+list.addFirst(pid);
+再将list转换为字符串，写入Cookie.  每次访问的时候，都先将字符串解析，然后转换为新的Cookie存入。
 
 3.将Cookie的数据送入ProductListByCidServlet中，获得Cookie中的pid。根据pid获得商品对象，封装成list。存入listInfo.jsp中，将商品的信息显示在历史纪录中。
