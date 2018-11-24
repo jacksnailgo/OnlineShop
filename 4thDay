@@ -14,9 +14,11 @@
 
 
 
-在使用转发跳转到cart.jsp页面出现的问题是：当刷新页面，重新执行方法，而购物车的页面中总金额会增加，但是购物车内的物品没有改变。
+在使用转发跳转到cart.jsp页面出现的问题是：当刷新页面，重新执行方法，而购物车的页面中总金额会增加，小计金额不会改变。相当于再次添加了一次购物车。
 因此使用重定向：
 
 
 难题：  在点击加入购物车按钮时，可以跳转到http://localhost:8080/shop/product?method=addProductToCart&pid=33&buyNum=1。
 但是无法执行method=addProductToCart的方法，没法跳转到购物车页面（cart.jsp)。
+
+当我们重写写一个Servlet方法时，这个方法就解决了。
