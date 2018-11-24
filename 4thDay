@@ -1,2 +1,14 @@
-Servlet的抽取
+1.Servlet的抽取
 每个模块包含几个Servlet.
+比如productServlet包含有显示商品类别(categoryList)，显示首页(index)，显示商品详细信息(productInfo)，
+根据商品类别获得商品列表的功能(productListInfo).
+在productServlet中添加以上4中方法，doGet方法中，request.getParameter("method"); 
+判断方法名，执行对应的方法。
+
+在对应的所有JSP页面中，修改传递的地址路径，比如 将路径改为href="${pageContext.request.contextPath}/product?method=productInfo。 
+方法中传递的参数带有method。
+
+
+2.购物车业务
+
+
