@@ -9,14 +9,25 @@
 方法中传递的参数带有method。
 
 
-2.购物车业务
+2.购物车业务模块
+购物车商品的添加、删除、清空。
+    创建CartItem对象  每个商品product和他的数量、小计，对应着一个CartItem.  
+    创建Cart购物车对象，具有的属性：Map<String,CartItem>    和总计金额total.
 
+创建添加至购物车的方法：
+在添加购物车的按钮中，携带Pid和购买数量buyNum。获得根据pid查询数据库得到的商品，加入cartItem。将CartItem加入cart中，计算总金额，
+最后将Cart存入session域中。
 
-
-
-在使用转发跳转到cart.jsp页面出现的问题是：当刷新页面，重新执行方法，而购物车的页面中总金额会增加，小计金额不会改变。相当于再次添加了一次购物车。
+在使用转发跳转到cart.jsp页面出现的问题是：当刷新页面，重新执行方法，而购物车的页面中总金额会增加，小计金额不会改变。
+相当于再次添加了一次购物车。
 因此使用重定向：
 
+删除购物车中的商品的方法delProductToCart.
+点击删除按钮，onclick设置的函数delProductToCart,将Pid属性携带进入函数，调换到删除的方法内。
+方法中，重新设置小计金额和购物车的总金额。
+
+清空购物车：
+方法同删除购物车中的商品。
 
 难题：  在点击加入购物车按钮时，可以跳转到http://localhost:8080/shop/product?method=addProductToCart&pid=33&buyNum=1。
 但是无法执行method=addProductToCart的方法，没法跳转到购物车页面（cart.jsp)。
