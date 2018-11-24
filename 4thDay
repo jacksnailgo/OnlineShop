@@ -12,3 +12,8 @@
 2.购物车业务
 
 
+
+
+
+难题：  在点击加入购物车按钮时，可以跳转到http://localhost:8080/shop/product?method=addProductToCart&pid=33&buyNum=1。
+但是无法执行method=addProductToCart的方法，没法跳转到购物车页面（cart.jsp)。
