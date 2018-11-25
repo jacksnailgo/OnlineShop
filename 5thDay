@@ -1,3 +1,29 @@
-1.订单提交的分析
-涉及多张表的处理（事务处理）
+
+
+1.解决使用英文用户名登陆的问题（中文用户名登陆的问题暂时无法解决）
+编写loginServlet，修在login.jsp页面，同时将username,password提交给表单。
+Login Servlet中。
+查询获得user,然后将user存储在Cookie中，同时存放在session域中。之后的页面都可以获得user这个对象。
+
+2.解决订单提交的问题（这是项目中最重要的也是最难的一点）
+涉及多表的操作
+
+首先，分析订单的业务，是将多个订单项合在一起。
+编写Order订单对象，属性和购物车Cart属性类似。
+具有：oid订单编号，orderTime订单提交时间，total总计，state付款状态（0代表未付款，1代表付款），
+User(表中是address,name,telephone,uid)。
+编写OrderItem项（和购物车中的CartItem相似），属性根据SQL表的设计具有：itemId订单项的编号,count购买数量,subtotal小计
+,Product(表中是pid),Order(表中是oid)
+
+业务逻辑；
+Servlet层
+订单项首先要具有User，因此提交订单之前需要用户登陆，同时将user对象存放在session域中。
+提交订单时，我们将购物车中的所有物品，封装成订单对象。order.set   
+同时对每个订单项设置他的属性,购物车中的每个购物项转化成订单中的每个订单项。  cart存放的是map，采用图的遍历
+for(Map.Entry<String, CartItem> entry:map.entrySet()) {
+  对OrderItem的项目进行设置，并添加入order中。
+}
+
+Service层：提交订单，因此要将Order传递进去。涉及多表的操作，因此要开启事务，调用dao层的方法，修改order表，同时修改多张orderItem表。
+Dao层：向Order插入数据，同时也向OrderItem中插入数据。
 
