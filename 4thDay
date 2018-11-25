@@ -32,4 +32,5 @@
 难题：  在点击加入购物车按钮时，可以跳转到http://localhost:8080/shop/product?method=addProductToCart&pid=33&buyNum=1。
 但是无法执行method=addProductToCart的方法，没法跳转到购物车页面（cart.jsp)。
 问题分析：可能是之前没有写BaseServlet，ProductServlet没有继承BaseServlet.
-当我们重写写一个Servlet方法时，这个方法就解决了。
+
+解决方法：利用反射技术，编写一个BaseServlet方法，让productServlet继承BaseServlet。
