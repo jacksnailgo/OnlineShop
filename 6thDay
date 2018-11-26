@@ -1,7 +1,9 @@
 
 输入用户收货地址，收货人，电话号码之后要确定订单。
 这一步包含3个动作：1.将收货人的信息更新到数据  2.在线支付的功能（跳转到银行页面）  3.支付成功后修改数据的state状态
-1.更新收货人信息
+1.更新收货人信息  ProductServlet方法：public void confirmOrder (){
+将表单中的name,地址，电话通过BeanUtils封装给Order对象。 然后dao层order中的信息。
+}
 
 2.在线支付
 获得选择的银行，
@@ -13,7 +15,7 @@
 Description The origin server did not find a current representation for the target resource 
 or is not willing to disclose that one exists.
 昨天项目可以访问的，今天重启电脑之后，开始做在线支付的项目，对项目的操作有：导入propretis文件和Utils文件，修改Productservlet.
-
+赶紧解决这个大问题！！！
 
 控制台报错：Exception starting filter [EncodeFilter]
 java.lang.ClassNotFoundException: filter.EncodeFilter
@@ -22,4 +24,4 @@ java.lang.ClassNotFoundException: filter.EncodeFilter
 及时将web.xml文件中的filter注释掉，就解决问题拉！
 
 
-赶紧解决这个大问题！！！
+
