@@ -14,4 +14,12 @@ Description The origin server did not find a current representation for the targ
 or is not willing to disclose that one exists.
 昨天项目可以访问的，今天重启电脑之后，开始做在线支付的项目，对项目的操作有：导入propretis文件和Utils文件，修改Productservlet.
 
+
+控制台报错：Exception starting filter [EncodeFilter]
+java.lang.ClassNotFoundException: filter.EncodeFilter
+
+原来是我昨天没有将filter清除干净，访问shop页面需要经过过滤器filter，
+及时将web.xml文件中的filter注释掉，就解决问题拉！
+
+
 赶紧解决这个大问题！！！
