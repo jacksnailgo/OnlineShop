@@ -9,7 +9,7 @@
 获得选择的银行，
 3.在CallBackServlet中，加入修改state的方法，通过调用dao层语句即可。
 
-4.点击我的订单，查看订单。
+4.点击我的订单，查看订单。（逻辑复杂）
 查询用户的所有订单，而在SQL表中，只有OrderItem表和Order表。 
 而显示的订单包含逻辑为：  一个订单域有多个订单，每个订单包含多个订单项（orderItem）。每个订单项显示：商品的名字，图片，单价
 以及显示订单的小计，数量。
@@ -22,6 +22,12 @@ select i.count,i.subtotal,p.pimage,p.pname,p.shop_price from orderItem i,product
 将里面的数据存放在每个订单项orderItem中，封装的过程，我们使用了BeanUtils，自动为我们将map中的数据和对象匹配，封装
 到product和item中。
 
+
+
+5.权限控制
+
+将页面跳转的代码放入Filter中，filter可以过滤一些页面，我们将登陆，提交订单，查看购物车的servlet过滤。
+如果用户没有登陆，那么无法查看信息。
 
 今天遇到重大问题：
 ！！！   打开localhost:8080/shop   访问404报错！！！
