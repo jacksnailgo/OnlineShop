@@ -1,0 +1,96 @@
+package servlet;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.jasper.tagplugins.jstl.core.Out;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+/**
+ * Servlet implementation class UploadServlet
+ */
+public class UploadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		// 1.创建工厂2.创建文件上传核心类3.解析请求request4.遍历list 寻找FormItem 5.判断文件项
+		String path_temp = this.getServletContext().getRealPath("temp");
+		DiskFileItemFactory factory = new DiskFileItemFactory(1024 * 1024, new File(path_temp));
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		boolean multipartContent = upload.isMultipartContent(request);// 判断表单是否是文件上传的表单
+		// 设置上传文件名称的编码，防止乱码
+		upload.setHeaderEncoding("utf-8");
+		List<FileItem> FileItems = null;
+		if (multipartContent) {
+			// 是文件上传的表单
+			// 解析request
+			try {
+				FileItems = upload.parseRequest(request);
+			} catch (FileUploadException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(FileItems!=null) {
+				for(FileItem item:FileItems) {
+					boolean isFormFiled=item.isFormField();
+					if(isFormFiled) {
+						//普通表单项
+					String name=item.getFieldName();
+					String value=item.getString("utf-8");
+					System.out.println(name+"----"+value);
+					//当表单是enctype:multipart/form-data,request.getParameter相关的方法失效
+					//String name=request.getParameter("name");
+					}else {
+						//文件上传项
+						//文件的名
+						String fileName = item.getName();
+						System.out.println(fileName);
+						//获得上传文件的内容
+						InputStream in = item.getInputStream();
+						String path_store = this.getServletContext().getRealPath("upload");
+						System.out.println(path_store);
+						OutputStream out = new FileOutputStream(path_store+"/"+fileName);
+						IOUtils.copy(in, out);
+						in.close();
+						out.close();
+						
+						//删除临时文件
+						item.delete();
+					}
+				}
+			}
+		} else {
+			// 不是文件上传的表单
+			//使用原始的request.getParameter("");
+
+		}
+
+	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
