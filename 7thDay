@@ -1,0 +1,4 @@
+1.文件上传
+文件上传3个必要条件： 1.post提交  2.<input type="file"  name="">必须要有名字  3.  enctype="multipart/form-data" 
+
+编写一个网页文件
