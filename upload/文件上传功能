@@ -1,0 +1,41 @@
+首先导包：commons-fileupload-1.2.1和commons-io-1.2.1
+
+
+使用到的相关功能和API
+
+FileItem是存放了表单信息的接口，这里看作一个实体。
+for(FileItem item:ListFileItems)
+使用到的方法：getName()获得文件上传字段的文件名。
+  getFieldName() 获得表单字段元素表述头name的属性值。
+  getString()将FileItem对象中保存的数据流内容以一个字符串返回.   getString("utf-8")可以防止内容的乱码。
+  
+  
+DiskFileItemFactory类：
+用于将请求消息实体中的每一个文件封装成单独的FileItem对象。如果上传文件较小，直接保存在内存中。较大的话，可以设置临界值，会以临时文件的形式
+保存在默认目录。
+DiskFileItemFactory factory = new DiskFileItemFactory(1024 * 1024, new File(path_temp));  构造器传递的int sizeThreshold, File repository。
+临界值的大小和临时仓库的地址。
+
+
+ServletFileUpload类
+通过使用parseRequest(HttpServletRequest)方法可以将HTML中每个表单提交的数据封装成一个FileItem对象，然后以List列表形式返回。
+ServletFileUpload upload = new ServletFileUpload(factory);
+方法：isMultipartContent(request)  判断请求消息中的内容是否是multipart/form-data类型，如果是，返回ture
+
+
+
+
+
+
+
+
+
+
+
+
+
+遇到的问题：uploadServlet 上传文件的过程中，我们使用chrome浏览器，文件名使用的是相对路径。 
+使用Edge浏览器，文件名给的是绝对路径，导致服务器出现500错误
+ C:\Users\coppe\Downloads\apache-tomcat-9.0.11\wtpwebapps\shop\upload\C:\downloadbySYJ\新生名单.xls (文件名、目录名或卷标语法不正确。)
+ 
+ 
