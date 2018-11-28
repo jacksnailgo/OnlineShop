@@ -1,0 +1,24 @@
+后台功能
+
+1.商品添加页面的类别AJAX展示
+和之前的类别展示一样，通过AJAX技术实现。
+点击添加按钮，在add.jsp页面上，引入<script> 通过$.post 将servlet中的json数据传送到页面。
+$.post(url,params,callBack(),"json");
+其中url代表请求服务器的地址，sevlet。   params代表请求携带的参数  callBack()回响函数     "json"代表服务器返回数据的格式。
+servlet中，查询数据库，将List<category>包装成json字符串。
+2.商品添加的代码实现
+
+
+3.全部订单的查询
+dao层查询所有订单，返回list<Order>。存在requets域中，返回到admin/order/list.jsp页面中。
+
+
+4.查询订单详情
+使用了弹出层的插件
+
+后台：public void findOrderInfoByOid(){
+
+
+前台：
+
+5.删除商品, 使用js函数，onclick=del();  
