@@ -1,0 +1,41 @@
+弹出层的展示：
+点击订单详情出现订单详细页面。  使用AJAX技术。
+代码如下：function findOrderInfoByOid(oid){
+				//每次点击查询，都要将之前的内容清空
+				$("#showDivTab").html("");
+				$("#shodDivOid").html("");
+				$("#loading").css("display","block");//每次清空内容都要loading显示条
+				console.log(oid);
+				var url="${pageContext.request.contextPath}/admin?method=findOrderByOid";
+				
+				$.post(
+					url,
+							{"oid":oid},
+					function(data){
+								$("#loading").css("display","none");
+								var content="<tr id='showTableTitle'>"+
+									"<th width='20%'>图片</th>"+
+									"<th width='25%'>商品</th>"+
+									"<th width='20%'>价格</th>"+
+									"<th width='15%'>数量</th>"+
+									"<th width='20%'>小计</th>"+"</tr>";
+								for(var i=0;i<data.length;i++){
+								
+								
+									content+="<tr style='text-align: center;'>"+
+									"<td><img src='${pageContext.request.contextPath }/"+data[i].pimage+"' width='70' height='60'>"+
+									"</td>"+
+									"<td><a target='_blank'>"+data[i].pname+"</a></td>"+
+									"<td>￥"+data[i].shop_price+"</td>"+
+									"<td>"+data[i].count+"</td>"+
+									"<td><span class='subtotal'>￥"+data[i].subtotal+"</span></td></tr>";
+								}
+							$("#showDivTab").html(content);
+							$("#shodDivOid").html(oid);
+							},"json"
+				);
+			}
+			
+      面向接口编程
+      
+      
