@@ -17,8 +17,15 @@ dao层查询所有订单，返回list<Order>。存在requets域中，返回到ad
 使用了弹出层的插件
 
 后台：public void findOrderInfoByOid(){
+前台要显示的数据有：pimage,pname,shop_price,以及OrderItem中的count,subtotal,  同时一个订单order中有多个订单项Order,
+使用数据结构List<Map<String,Object>> 返回根据订单oid查询到的结果。  并将结果以json的形式返回给页面。
 
-
-前台：
+前台：$.post  （url,params，callBack(),"json")   params将oid参数传递给服务器 ，服务器返回json字符串。
+使用字符串拼接json串，完成订单详情的展示。
 
 5.删除商品, 使用js函数，onclick=del();  
+传递参数pid，根据pid删除数据库中product表中的商品。
+function del(pid){
+			if(confirm("是否要删除该商品")){
+				window.location.href="${pageContext.request.contextPath}/admin?method=delProduct&pid="+pid;
+			}
