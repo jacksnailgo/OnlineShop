@@ -11,7 +11,25 @@ public class UserService {
 		UserDao dao=new UserDao();
 		int row=dao.register(user);
 		if(row>0)return true;
-		return false;
+		 return false;
+	}
+
+	public void changeState(String activeCode) {
+		UserDao dao=new UserDao();
+		try {
+			dao.changeState(activeCode);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public int checkUsername(String username) throws SQLException {
+		UserDao dao=new UserDao();
+	int res= dao.checkUsername(username);
+
+	return res;
 	}
 
 }
