@@ -1,4 +1,4 @@
-完善项目
+完善项目   完成用户名校验AJAX的操作。
 问题情景： 离开此输入框之后，调用Check函数，在JS中传递input中的值。
 
 <input type="text" class="form-control" id="username" name="username" onmouseout="check();"
@@ -19,3 +19,11 @@ var res=$("#username").val();
 
 
 又遇到问题：   dao层查询到了用户名的数据，同时以json格式传回给浏览器。   可是，只有exist数据为0的时候，才可以打印出数据。
+
+check = service.checkUsername(username);
+String json= "{\"isExist\":"+check+"}";
+我特么才发现，我在servlet层加了一个这个东西：
+if(check==0)response.getWriter().write(json);	   加了一个判断语句！！！
+
+
+今日使用的Servlet：CheckUsernameServlet  
