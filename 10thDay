@@ -12,3 +12,10 @@ var res=$("#username").val();
 
 今日问题： checkUserServlet获取不到regeister.jsp页面中传递过来的username的参数，
 同时打开浏览器，发现浏览器内存中保留的还是之前的jsp页面，没有更新。   重启tomcat服务器无法解决该问题。
+
+后来发现是：我写了2个同名的js函数，导致上面的函数不执行。！！！  
+
+问题解决。
+
+
+又遇到问题：   dao层查询到了用户名的数据，同时以json格式传回给浏览器。   可是，当exist!=0的时候，控制台无法打印输出data.isExist的数据。
