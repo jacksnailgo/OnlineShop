@@ -3,7 +3,7 @@ package dao;
 import java.sql.SQLException;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.taglibs.standard.tag.common.sql.DataSourceUtil;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import domain.User;
 import util.DataSourceUtils;
@@ -22,7 +22,15 @@ public class UserDao {
 	public void changeState(String activeCode) throws SQLException {
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		String sql="update user set state=1 where code=? ";
-		int row=runner.update(sql,activeCode);
+		runner.update(sql,activeCode);
+	}
+
+	public int checkUsername(String username) throws SQLException {
+		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql="select count(*) from user where username=? ";
+		Long res=(Long) runner.query(sql, new ScalarHandler(),username);
+		System.out.println("dao查询结果"+res);
+		return res.intValue();
 	}
 
 }
